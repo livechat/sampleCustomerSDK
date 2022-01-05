@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!--
+      This is the page head - it contains info the browser uses to display the page
+      You won't see what's in the head in the page
+      Scroll down to the body element for the page content
+    -->
+
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" href="https://glitch.com/favicon.ico" />
+    <!-- Compiled and minified CSS -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
+
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
+    <!-- 
+      This is an HTML comment
+      You can write text in a comment and the content won't be visible in the page
+    -->
+
+    <title>Hello World!</title>
+
+    <!-- Meta tags for SEO and social sharing -->
+    <link rel="canonical" href="https://glitch-hello-website.glitch.me/" />
+    <meta name="robots" content="index,follow" />
+    <meta property="og:title" content="CustomerSDK test!" />
+    <meta
+      property="og:description"
+      content="A simple website, built with Glitch. Remix it to get your own."
+    />
+    <meta
+      property="og:image"
+      content="https://cdn.glitch.com/605e2a51-d45f-4d87-a285-9410ad350515%2Fhello-website-social.png?v=1616712748147"
+    />
+    <meta name="twitter:card" content="summary" />
+
+    <!-- Import the webpage's stylesheet -->
+    <link rel="stylesheet" href="/style.css" />
+
+    <!-- Import the webpage's javascript file -->
+    <script src="/script.js" defer></script>
+    <script src="https://unpkg.com/@livechat/customer-sdk@3.1.0"></script>
+  </head>
+  <body>
+    <div style="display: none">
+      <audio id="notify">
+        <source
+          src="https://cdn.glitch.global/0087d73d-3919-48de-acee-364a9e27c9a0/horse.ogv?v=1641384630927"
+          type="audio/ogg"
+        />
+      </audio>
+    </div>
+    <h3>LiveChat CustomerSDK Test Implementation</h3>
+    <span>Support availability status: <b id="status">Offline</b></span>
+    <br />
+    <i
+      >Chat widget will not be available when availability status is set to
+      offline.</i
+    >
+    <div class="wrapper">
+      <div class="methods">
+        <button id="getCustomer" class="waves-effect waves-light btn">
+          GET CUSTOMER
+        </button>
+        <button id="getChat" class="waves-effect waves-light btn">
+          GET CHAT
+        </button>
+
+        <button id="listChats" class="waves-effect waves-light btn">
+          LIST CHATS
+        </button>
+        <button id="showAgent" class="waves-effect waves-light btn">
+          SHOW AGENT
+        </button>
+        <button id="deactivateChat" class="waves-effect waves-light btn">
+          DEACTIVATE CHAT
+        </button>
+        <button id="readAll" class="waves-effect waves-light btn">
+          READ ALL
+        </button>
+      </div>
+      <div class="terminal">
+        <span>$livechatInc </span><span id="methodName"></span>
+        <span class="cursor">_</span><br />
+        <span id="output"></span>
+      </div>
+    </div>
+
+    <div class="floater">&#9775;</div>
+    <div class="chat_container" style="display: none">
+      <div class="chat_title">
+        <div class="title">CHAT TITLE</div>
+        <div class="material-icons">rate_review</div>
+      </div>
+      <div class="chat_content"></div>
+      
+      <div class="rate" style="display:none;">
+      <input type="range" id="rateInput" max="5" min="1"/>
+      <textarea placeholder="Type a comment" id="rateComment"></textarea>
+        <button class="btn">Send </button>
+      </div>
+      
+      <textarea id="textarea" placeholder="Start typing..."></textarea>
+    </div>
+  </body>
+</html>
