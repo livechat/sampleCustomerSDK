@@ -160,14 +160,26 @@ background:#854747;
   height:200px;
   padding:50px;
   top:50px;
-  background:#dfdfdf;
+  background:#fff;
+  text-align:center;
 }
 
 .rate textarea {
   background: #fff;
 }
 
+input[type="radio"]{
+  opacity:1!important;
+  position:inherit!important;
+  color:red;
+  margin-left:10px;
+  margin-bottom:20px;
+}
 
+
+#goodLabel:checked ~ #goodLabel i{
+  color:green;
+}
 
 @keyframes blink {
   0% {

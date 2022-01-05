@@ -4,6 +4,7 @@ const status = document.querySelector("#status");
 const floater = document.querySelector(".floater");
 const textarea = document.querySelector("#textarea");
 const title = document.querySelector(".title");
+const rate_chat = document.querySelector('.rate')
 var authors = [];
 var chatId = undefined;
 var chatStatus = undefined;
@@ -45,6 +46,7 @@ sdk.on("connected", async (p) => {
 sdk.on("incoming_event", (r) => {
   
   if (r.event.type === "message") {
+    title.innerHTML = "Chat with " + agent.name;
     addResponseAgent(r.event);
     
   }
@@ -130,6 +132,8 @@ textarea.addEventListener("keyup", async function (event) {
     if (listChats.chatsSummary.length > 0) {
       chatStatus = listChats.chatsSummary[0].active;
       agent = listChats.users[1];
+      title.innerHTML = "Chat with " + agent.name;
+
     } 
     if (!chatId) {
       console.log("starting");
@@ -186,6 +190,38 @@ var seen = () => {
   })
 }
 
+
+var rateChat = () => {
+  var rating = document.querySelector("input[name='rate']:checked").value
+  c(rating)
+  rating= parseInt(rating)
+  var comment = document.querySelector("#rateComment").value
+  sdk
+  .rateChat({
+    chatId: chatId,
+    rating: {
+      score: rating ,
+      comment: comment,
+    },
+  })
+  .then(() => {
+    console.log('Rating has been set')
+  })
+  .catch(error => {
+    console.log(error)
+  })
+}
+
+document.querySelector('#sendRate').addEventListener('click', () => {
+  rateChat()
+  document.querySelector('.rate').style.display="none"
+})
+
+document.querySelector('#rateBtn').addEventListener('click', () => {
+  c(rate_chat.style.display)
+  if(rate_chat.style.display === "block") rate_chat.style.display = "none"
+  else rate_chat.style.display = "block"
+})
 document
   .querySelector("#getCustomer")
   .addEventListener("click", async function (event) {

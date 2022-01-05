@@ -97,17 +97,19 @@
     </div>
 
     <div class="floater">&#9775;</div>
-    <div class="chat_container" style="display: none">
+    <div class="chat_container" style="display: none;">
       <div class="chat_title">
-        <div class="title">CHAT TITLE</div>
-        <div class="material-icons">rate_review</div>
+        <div class="title">Chat with agent</div>
+        <div id="rateBtn" class="material-icons">rate_review</div>
       </div>
       <div class="chat_content"></div>
       
-      <div class="rate" style="display:none;">
-      <input type="range" id="rateInput" max="5" min="1"/>
+      <div class="rate" style="display:none">
+      <label id="#goodLabel"><input type="radio" id="good" value="1" name="rate" checked/><i class="material-icons">thumb_up</i></label>  
+      <label id="#badLabel"><input type="radio" id="bad" value="0" name="rate"/>    <i class="material-icons">thumb_down</i></label>
+
       <textarea placeholder="Type a comment" id="rateComment"></textarea>
-        <button class="btn">Send </button>
+        <button class="btn" id="sendRate">Send </button>
       </div>
       
       <textarea id="textarea" placeholder="Start typing..."></textarea>
