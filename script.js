@@ -12,34 +12,44 @@ var agent = {};
 var c = console.log
 const config = {
   licenseId: 13346586,
-  clientId: "41b41631fe4cdfe8ec7c8f4887f563fa",
+  clientId: "41b41631fe4cdfe8ec7c8f4887f563fa"
 };
 
 //Additional comma in the Documentation
 const sdk = CustomerSDK.init(config);
 
 sdk.on("connected", async (p) => {
-  console.log(p);
+  // console.log(p);
   status.innerHTML = p.availability;
-  if (p.availability === "offline") floater.style.display = "none";
-  else {
+
     let listChats = await sdk.listChats();
-    console.log(listChats);
+    // console.log(listChats);
     if (listChats.chatsSummary.length > 0) {
       chatId = listChats.chatsSummary[0].id;
       chatStatus = listChats.chatsSummary[0].active;
       agent = listChats.users[1];
+      
+      let chatHistory = sdk.getChatHistory({chatId:"R54J0T2I8O"})
+      let historyStatus = await chatHistory.next()
+      while(!historyStatus.done)
+        historyStatus = await chatHistory.next()
       let chats = await sdk.getChat({ chatId: chatId });
       let customerData = await sdk.getCustomer();
       authors[0] = customerData.id;
       getAuthors(chats.thread.events);
-      c(authors);
+      // c(authors);
       title.innerHTML = "Chat with " + agent.name;
+      historyStatus.value.threads.forEach((thread) => {
+        thread.events.forEach((event) => {
+          addMessage(event)
+        })
+      })
+      
       chats.thread.events.forEach((event) => {
         addMessage(event);
-        c(event);
+        // c(event);
       });
-    }
+
   }
 });
 
@@ -136,18 +146,25 @@ textarea.addEventListener("keyup", async function (event) {
 
     } 
     if (!chatId) {
-      console.log("starting");
+      // console.log("starting");
       var chat = await sdk.startChat();
       chatId = chat.chat.id;
-      console.log(chat.chat.id, chatId);
-      console.log(chat);
+      // console.log(chat.chat.id, chatId);
+      // console.log(chat);
     } else if (chatStatus === false) {
-      console.log("chat resumed");
+      // console.log("chat resumed");
       sdk.resumeChat({ chat: { id: chatId } });
     }
-
-    sendMessage();
-    textarea.value = null;
+    
+    var valueCheck = textarea.value
+    valueCheck = valueCheck.replace(/\s/g,'')
+    if(valueCheck.length>0){
+      
+      sendMessage();
+      textarea.value = null;
+    } else {
+      textarea.value = null;
+    }
   }
 });
 
@@ -158,10 +175,10 @@ sdk.on("incoming_typing_indicator", (payload) => {
   if (payload.typingIndicator.isTyping) {
     var m = document.querySelector("#typingIndicator");
     if (m) return;
-    console.log("typing");
+    // console.log("typing");
     chatContent.appendChild(indicator);
   } else {
-    console.log("not typing");
+    // console.log("not typing");
     indicator = document.querySelector("#typingIndicator");
     if (indicator) indicator.remove();
   }
@@ -175,7 +192,7 @@ var seen = () => {
    var date = new Date().toISOString()
   var i = date.lastIndexOf("Z")
   date = date.substr(0,i) + "000" + date.substr(i)
-  c(date)
+  // c(date)
   
   sdk
   .markEventsAsSeen({
@@ -193,7 +210,7 @@ var seen = () => {
 
 var rateChat = () => {
   var rating = document.querySelector("input[name='rate']:checked").value
-  c(rating)
+  // c(rating)
   rating= parseInt(rating)
   var comment = document.querySelector("#rateComment").value
   sdk
@@ -218,7 +235,7 @@ document.querySelector('#sendRate').addEventListener('click', () => {
 })
 
 document.querySelector('#rateBtn').addEventListener('click', () => {
-  c(rate_chat.style.display)
+  // c(rate_chat.style.display)
   if(rate_chat.style.display === "block") rate_chat.style.display = "none"
   else rate_chat.style.display = "block"
 })

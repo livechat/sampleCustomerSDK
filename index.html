@@ -49,6 +49,7 @@
 
     <!-- Import the webpage's javascript file -->
     <script src="/script.js" defer></script>
+    <script src="/ws.js" defer></script>
     <script src="https://unpkg.com/@livechat/customer-sdk@3.1.0"></script>
   </head>
   <body>
@@ -60,13 +61,17 @@
         />
       </audio>
     </div>
-    <h3>LiveChat CustomerSDK Test Implementation</h3>
+    <h3>LiveChat CustomerSDK and Real Time Messaging Test Implementation</h3>
     <span>Support availability status: <b id="status">Offline</b></span>
     <br />
     <i
       >Chat widget will not be available when availability status is set to
       offline.</i
     >
+    <br />
+    <i>
+    Real Time Messaging is available in the Browser Developers Console.
+    </i>
     <div class="wrapper">
       <div class="methods">
         <button id="getCustomer" class="waves-effect waves-light btn">
